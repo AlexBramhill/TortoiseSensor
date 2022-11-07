@@ -1,0 +1,7 @@
+{
+  "name": "TortoiseSensor",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
