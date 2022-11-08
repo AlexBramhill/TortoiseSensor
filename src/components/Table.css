@@ -1,0 +1,28 @@
+.table-container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding-top: 5px;
+}
+
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+}
+
+.table-button {
+  transform: translateY(15%);
+}
+
+.table-row:nth-of-type(odd) {
+  background-color: var(--ion-color-light-shade);
+}
+
+.table-row:hover {
+  background-color: var(--ion-color-light-tint);
+}
+
+.table-title :hover {
+  background-color: var(--ion-color-light-tint);
+}
