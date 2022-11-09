@@ -30,7 +30,7 @@ const DatePicker = ({ data, name }: { data: IDateTimeLimit; name: string }) => {
     setIsOpen(!isOpen);
   };
 
-  const datetime = useRef<HTMLIonDatetimeElement>({} as HTMLIonDatetimeElement);
+  const datetime = useRef<null | HTMLIonDatetimeElement>(null);
 
   const now = () => {
     const nowDate = new Date();
