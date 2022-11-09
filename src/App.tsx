@@ -34,21 +34,23 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import { DataPoint } from "./class/DataPoint";
+import { useSensorData } from "./hook/useSensorData";
 
 setupIonicReact();
 
 const App: React.FC = () => {
-  
+  const sensorData = useSensorData();
+
   return (
     <IonApp>
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
             <Route exact path="/tab1">
-              <Tab1 />
+              <Tab1 sensorData={sensorData} />
             </Route>
             <Route exact path="/tab2">
-              <Tab2 />
+              <Tab2 sensorData={sensorData} />
             </Route>
             <Route path="/tab3">
               <Tab3 />
@@ -64,7 +66,7 @@ const App: React.FC = () => {
             </IonTabButton>
             <IonTabButton tab="tab2" href="/tab2">
               <IonIcon icon={ellipse} />
-              <IonLabel>Latest</IonLabel>
+              <IonLabel>Summary</IonLabel>
             </IonTabButton>
             <IonTabButton tab="tab3" href="/tab3">
               <IonIcon icon={square} />

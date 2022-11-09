@@ -71,7 +71,7 @@ const Table = ({ sensorData }: { sensorData: ISensorData }) => {
     return <Loading />;
   }
   return (
-    <IonContent className="table-container">
+    <IonContent>
       <IonGrid fixed={true}>
         <IonRow className="table-title">
           <TableHeader

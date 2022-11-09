@@ -13,8 +13,7 @@ import { ISensorData, useSensorData } from "../hook/useSensorData";
 import { getAllTemperatures } from "../service/sensorService";
 import "./Tab1.css";
 
-const Tab1: React.FC = () => {
-  const sensorData = useSensorData();
+const Tab1 = ({ sensorData }: { sensorData: ISensorData }) => {
   return (
     <IonPage>
       <IonHeader>
