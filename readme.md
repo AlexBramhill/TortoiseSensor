@@ -1,5 +1,7 @@
 # Tortoise Sensor Front End
 
+A quick and messy app,
+
 Made to monitor the tortoise fridge during the cold months
 
 ## Running
