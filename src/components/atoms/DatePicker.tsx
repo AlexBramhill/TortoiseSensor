@@ -1,11 +1,11 @@
-import { IonButton, IonModal, IonDatetime, IonButtons } from "@ionic/react";
-import { useState, useRef } from "react";
+import { IonButton, IonButtons, IonDatetime, IonModal } from "@ionic/react";
+import { useRef, useState } from "react";
 import { formatDateTime } from "../../helper/dateHelper";
-import { IDatetime } from "../../hook/useDatetimes";
 import "./DatePicker.css";
 
 export interface IDatePickerProps {
-  datetime: IDatetime;
+  datetime: Date;
+  updateDatetime: (date: Date) => void;
   min: Date;
   max: Date;
 }
@@ -20,7 +20,7 @@ export const DatePicker = ({ props }: { props: IDatePickerProps }) => {
   const now = () => {
     const nowDate = new Date();
     componentDatetime.current?.reset(nowDate.toISOString());
-    props.datetime.updateDatetime(nowDate);
+    props.updateDatetime(nowDate);
     toggleIsOpen();
   };
   const cancel = () => {
@@ -29,16 +29,14 @@ export const DatePicker = ({ props }: { props: IDatePickerProps }) => {
   };
   const confirm = () => {
     componentDatetime.current?.confirm();
-    props.datetime.updateDatetime(
-      new Date(componentDatetime.current?.value as string)
-    );
+    props.updateDatetime(new Date(componentDatetime.current?.value as string));
     toggleIsOpen();
   };
 
   return (
     <>
       <IonButton onClick={toggleIsOpen}>
-        {formatDateTime(props.datetime.datetime)}
+        {formatDateTime(props.datetime)}
       </IonButton>
 
       <IonModal
@@ -49,7 +47,7 @@ export const DatePicker = ({ props }: { props: IDatePickerProps }) => {
       >
         <IonDatetime
           ref={componentDatetime}
-          value={props.datetime.datetime.toISOString()}
+          value={props.datetime.toISOString()}
           locale="en-GB"
           min={props.min.toISOString()}
           max={props.max.toISOString()}

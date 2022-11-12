@@ -3,35 +3,36 @@ import {
   IonHeader,
   IonPage,
   IonTitle,
-  IonToolbar,
+  IonToolbar
 } from "@ionic/react";
-import React, { useEffect } from "react";
-import { IGlobalProps } from "../App";
-import { DataPoint } from "../class/DataPoint";
 import {
   DuelDatePicker,
-  IDuelDatePickerProps,
+  IDuelDatePickerProps
 } from "../components/cards/DuelDatePicker";
-import Graph from "../components/Graph";
-import Table from "../components/Table";
-import { ISensorData, useSensorData } from "../hook/useSensorData";
-import { getAllTemperatures } from "../service/sensorService";
-import "./Tab1.css";
+import Table, { ITableProps } from "../components/Table";
+import { IUseData } from "../hook/useData";
+import "./Tab3.css";
 
-const Tab3 = ({ globalProps }: { globalProps: IGlobalProps }) => {
-  const { sensorData, datetimeLimits } = globalProps;
-  const DuelDatePickerProps: IDuelDatePickerProps = {
+const Tab3 = ({ props }: { props: IUseData }) => {
+  const { loading, dataSummary, filteredDataAndSummary, update } = props;
+  const duelDatePickerProps: IDuelDatePickerProps = {
     title: "Dates",
     datePicker1Props: {
-      datetime: datetimeLimits.startDateTime,
-      min: new Date("2022-01-31T23:59:59"),
-      max: new Date("2022-12-31T23:59:59"),
+      datetime: filteredDataAndSummary.filterStartDate,
+      updateDatetime: update.updateStartDatetime,
+      min: dataSummary.minDate,
+      max: dataSummary.maxDate,
     },
     datePicker2Props: {
-      datetime: datetimeLimits.endDateTime,
-      min: new Date("2022-01-31T23:59:59"),
-      max: new Date("2022-12-31T23:59:59"),
+      datetime: filteredDataAndSummary.filterEndDate,
+      updateDatetime: update.updateEndDatetime,
+      min: dataSummary.minDate,
+      max: dataSummary.maxDate,
     },
+  };
+  const tableProps: ITableProps = {
+    dataPoints: filteredDataAndSummary.filteredDataPoints,
+    loading: loading,
   };
   return (
     <IonPage>
@@ -40,14 +41,14 @@ const Tab3 = ({ globalProps }: { globalProps: IGlobalProps }) => {
           <IonTitle>All Data</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent fullscreen scrollY={false}>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Tab 3</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <DuelDatePicker props={DuelDatePickerProps} />
-        <Table sensorData={sensorData} />
+        <DuelDatePicker props={duelDatePickerProps} />
+        <Table props={tableProps} />
       </IonContent>
     </IonPage>
   );

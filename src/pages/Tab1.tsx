@@ -1,49 +1,36 @@
-import { IonDatetimeCustomEvent } from "@ionic/core";
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCardContent,
-  IonDatetime,
-  IonDatetimeButton,
-  IonModal,
-  IonButton,
-  IonButtons,
-  DatetimeChangeEventDetail,
+  IonContent, IonHeader, IonPage, IonTitle, IonToolbar
 } from "@ionic/react";
-import { FormEvent, MouseEvent, useRef, useState } from "react";
-import { IGlobalProps } from "../App";
-import { DataDisplay } from "../components/cards/DataDisplay";
+import { DataDisplay } from "../components/cards/DataPointDisplay";
 import {
   DuelDatePicker,
-  IDuelDatePickerProps,
+  IDuelDatePickerProps
 } from "../components/cards/DuelDatePicker";
-import { useDatetimeLimits } from "../hook/useDatetimes";
-import { ISensorData } from "../hook/useSensorData";
-import "./Tab2.css";
+import Loading from "../components/Loading";
+import { IUseData } from "../hook/useData";
+import "./Tab1.css";
 
-const Tab1 = ({ globalProps }: { globalProps: IGlobalProps }) => {
-  const { sensorData, datetimeLimits } = globalProps;
+const Tab1 = ({ props }: { props: IUseData }) => {
+  const { loading, dataSummary, filteredDataAndSummary, update } = props;
 
-  const DuelDatePickerProps: IDuelDatePickerProps = {
+  const duelDatePickerProps: IDuelDatePickerProps = {
     title: "Dates",
     datePicker1Props: {
-      datetime: datetimeLimits.startDateTime,
-      min: new Date("2022-01-31T23:59:59"),
-      max: new Date("2022-12-31T23:59:59"),
+      datetime: filteredDataAndSummary.filterStartDate,
+      updateDatetime: update.updateStartDatetime,
+      min: dataSummary.minDate,
+      max: dataSummary.maxDate,
     },
     datePicker2Props: {
-      datetime: datetimeLimits.endDateTime,
-      min: new Date("2022-01-31T23:59:59"),
-      max: new Date("2022-12-31T23:59:59"),
+      datetime: filteredDataAndSummary.filterEndDate,
+      updateDatetime: update.updateEndDatetime,
+      min: dataSummary.minDate,
+      max: dataSummary.maxDate,
     },
   };
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <IonPage>
       <IonHeader>
@@ -52,10 +39,25 @@ const Tab1 = ({ globalProps }: { globalProps: IGlobalProps }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <DuelDatePicker props={DuelDatePickerProps} />
-        <DataDisplay props={{ title: "Average Temp", data: "15deg" }} />
-        <DataDisplay props={{ title: "Last Reading", data: "15deg" }} />
-        <DataDisplay props={{ title: "Missed Reading", data: "15deg" }} />
+        <DuelDatePicker props={duelDatePickerProps} />
+        <DataDisplay
+          props={{
+            title: "Average Temp",
+            dataPoint: props.filteredDataAndSummary.lastDataPoint,
+          }}
+        />
+        <DataDisplay
+          props={{
+            title: "Last Reading",
+            dataPoint: props.filteredDataAndSummary.lastDataPoint,
+          }}
+        />
+        <DataDisplay
+          props={{
+            title: "Missed Reading",
+            dataPoint: props.filteredDataAndSummary.lastDataPoint,
+          }}
+        />
       </IonContent>
     </IonPage>
   );

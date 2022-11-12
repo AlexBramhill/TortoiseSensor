@@ -2,15 +2,12 @@ import {
   IonCol,
   IonContent,
   IonGrid,
-  IonIcon,
   IonRippleEffect,
-  IonRow,
+  IonRow
 } from "@ionic/react";
-import { chevronDown } from "ionicons/icons";
 import React from "react";
 import { DataPoint } from "../class/DataPoint";
 import { formatDateTimeReversed } from "../helper/dateHelper";
-import { ISensorData } from "../hook/useSensorData";
 import Loading from "./Loading";
 import "./Table.css";
 
@@ -24,6 +21,10 @@ interface ITableSorting {
   ascending: boolean;
 }
 
+export interface ITableProps {
+  dataPoints: DataPoint[];
+  loading: Boolean;
+}
 const TableHeader = ({
   header,
   changeSorting,
@@ -51,7 +52,7 @@ const TableRow = ({ dataPoint }: { dataPoint: DataPoint }) => (
   </IonRow>
 );
 
-const Table = ({ sensorData }: { sensorData: ISensorData }) => {
+const Table = ({ props }: { props: ITableProps }) => {
   const [sortColumn, setSortColumn] = React.useState<ITableSorting>({
     header: ETableHeader.DATE,
     ascending: false,
@@ -67,7 +68,7 @@ const Table = ({ sensorData }: { sensorData: ISensorData }) => {
     setSortColumn({ ...sortColumn, header: sortedHeader });
   };
 
-  if (sensorData.loading) {
+  if (props.loading) {
     return <Loading />;
   }
   return (
@@ -83,10 +84,10 @@ const Table = ({ sensorData }: { sensorData: ISensorData }) => {
             changeSorting={changeSorting}
           />
         </IonRow>
-        {[...sensorData.sensorData]
+        {[...props.dataPoints]
           .sort((a, b) => sortBy(a, b, sortColumn))
           .map((dataPoint: DataPoint) => (
-            <TableRow dataPoint={dataPoint} />
+            <TableRow dataPoint={dataPoint} key={dataPoint.date.getTime()} />
           ))}
       </IonGrid>
     </IonContent>

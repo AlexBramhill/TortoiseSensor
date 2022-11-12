@@ -1,4 +1,3 @@
-import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
   IonIcon,
@@ -7,11 +6,12 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
-  setupIonicReact,
+  setupIonicReact
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { ellipse, square, triangle } from "ionicons/icons";
 import React from "react";
+import { Redirect, Route } from "react-router-dom";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -21,44 +21,38 @@ import "@ionic/react/css/structure.css";
 import "@ionic/react/css/typography.css";
 
 /* Optional CSS utils that can be commented out */
-import "@ionic/react/css/padding.css";
+import "@ionic/react/css/display.css";
+import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/float-elements.css";
+import "@ionic/react/css/padding.css";
 import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
-import "@ionic/react/css/flex-utils.css";
-import "@ionic/react/css/display.css";
 
 /* Theme variables */
-import "./theme/variables.css";
-import { DataPoint } from "./class/DataPoint";
-import { ISensorData, useSensorData } from "./hook/useSensorData";
+import { useData } from "./hook/useData";
 import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";
-import { IDatetimeLimits, useDatetimeLimits } from "./hook/useDatetimes";
+import "./theme/variables.css";
 
 setupIonicReact();
-export interface IGlobalProps {
-  sensorData: ISensorData;
-  datetimeLimits: IDatetimeLimits;
-}
+
 const App: React.FC = () => {
-  const sensorData = useSensorData();
-  const datetimeLimits = useDatetimeLimits();
-  const globalProps = { sensorData, datetimeLimits };
+  const data = useData();
+  const globalProps = data;
   return (
     <IonApp>
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
             <Route exact path="/tab1">
-              <Tab1 globalProps={globalProps} />
+              <Tab1 props={globalProps} />
             </Route>
             <Route exact path="/tab2">
               <Tab2 />
             </Route>
             <Route path="/tab3">
-              <Tab3 globalProps={globalProps} />
+              <Tab3 props={globalProps} />
             </Route>
             <Route exact path="/">
               <Redirect to="/tab1" />
