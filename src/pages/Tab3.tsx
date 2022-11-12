@@ -1,13 +1,24 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab3.css';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
+import React, { useEffect } from "react";
+import { DataPoint } from "../class/DataPoint";
+import Graph from "../components/Graph";
+import Table from "../components/Table";
+import { ISensorData, useSensorData } from "../hook/useSensorData";
+import { getAllTemperatures } from "../service/sensorService";
+import "./Tab1.css";
 
-const Tab3: React.FC = () => {
+const Tab3 = ({ sensorData }: { sensorData: ISensorData }) => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 3</IonTitle>
+          <IonTitle>All Data</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -16,7 +27,7 @@ const Tab3: React.FC = () => {
             <IonTitle size="large">Tab 3</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Tab 3 page" />
+        <Table sensorData={sensorData} />
       </IonContent>
     </IonPage>
   );

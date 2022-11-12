@@ -1,33 +1,58 @@
+import { IonDatetimeCustomEvent } from "@ionic/core";
 import {
-  IonContent,
-  IonHeader,
   IonPage,
-  IonTitle,
+  IonHeader,
   IonToolbar,
+  IonTitle,
+  IonContent,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCardContent,
+  IonDatetime,
+  IonDatetimeButton,
+  IonModal,
+  IonButton,
+  IonButtons,
+  DatetimeChangeEventDetail,
 } from "@ionic/react";
-import React, { useEffect } from "react";
-import { DataPoint } from "../class/DataPoint";
-import Graph from "../components/Graph";
-import Table from "../components/Table";
-import { ISensorData, useSensorData } from "../hook/useSensorData";
-import { getAllTemperatures } from "../service/sensorService";
-import "./Tab1.css";
+import { FormEvent, MouseEvent, useRef, useState } from "react";
+import { DataDisplay } from "../components/cards/DataDisplay";
+import {
+  DuelDatePicker,
+  IDuelDatePickerProps,
+} from "../components/cards/DuelDatePicker";
+import { useDatetimeLimits } from "../hook/useDatetimes";
+import { ISensorData } from "../hook/useSensorData";
+import "./Tab2.css";
 
 const Tab1 = ({ sensorData }: { sensorData: ISensorData }) => {
+  const datetimeLimits = useDatetimeLimits();
+
+  const DuelDatePickerProps: IDuelDatePickerProps = {
+    title: "Dates",
+    datePicker1Props: {
+      datetime: datetimeLimits.startDateTime,
+      min: new Date("2022-01-31T23:59:59"),
+      max: new Date("2022-12-31T23:59:59"),
+    },
+    datePicker2Props: {
+      datetime: datetimeLimits.endDateTime,
+      min: new Date("2022-01-31T23:59:59"),
+      max: new Date("2022-12-31T23:59:59"),
+    },
+  };
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>All Data</IonTitle>
+          <IonTitle>Summary</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <Table sensorData={sensorData} />
+        <DuelDatePicker props={DuelDatePickerProps} />
+        <DataDisplay props={{ title: "Test", data: "15deg" }} />
       </IonContent>
     </IonPage>
   );
