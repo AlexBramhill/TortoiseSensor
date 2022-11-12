@@ -53,7 +53,9 @@ const Tab1 = ({ globalProps }: { globalProps: IGlobalProps }) => {
       </IonHeader>
       <IonContent fullscreen>
         <DuelDatePicker props={DuelDatePickerProps} />
-        <DataDisplay props={{ title: "Test", data: "15deg" }} />
+        <DataDisplay props={{ title: "Average Temp", data: "15deg" }} />
+        <DataDisplay props={{ title: "Last Reading", data: "15deg" }} />
+        <DataDisplay props={{ title: "Missed Reading", data: "15deg" }} />
       </IonContent>
     </IonPage>
   );
