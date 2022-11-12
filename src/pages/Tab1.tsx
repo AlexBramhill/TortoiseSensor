@@ -18,6 +18,7 @@ import {
   DatetimeChangeEventDetail,
 } from "@ionic/react";
 import { FormEvent, MouseEvent, useRef, useState } from "react";
+import { IGlobalProps } from "../App";
 import { DataDisplay } from "../components/cards/DataDisplay";
 import {
   DuelDatePicker,
@@ -27,8 +28,8 @@ import { useDatetimeLimits } from "../hook/useDatetimes";
 import { ISensorData } from "../hook/useSensorData";
 import "./Tab2.css";
 
-const Tab1 = ({ sensorData }: { sensorData: ISensorData }) => {
-  const datetimeLimits = useDatetimeLimits();
+const Tab1 = ({ globalProps }: { globalProps: IGlobalProps }) => {
+  const { sensorData, datetimeLimits } = globalProps;
 
   const DuelDatePickerProps: IDuelDatePickerProps = {
     title: "Dates",

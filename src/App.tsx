@@ -31,29 +31,34 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import { DataPoint } from "./class/DataPoint";
-import { useSensorData } from "./hook/useSensorData";
+import { ISensorData, useSensorData } from "./hook/useSensorData";
 import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";
+import { IDatetimeLimits, useDatetimeLimits } from "./hook/useDatetimes";
 
 setupIonicReact();
-
+export interface IGlobalProps {
+  sensorData: ISensorData;
+  datetimeLimits: IDatetimeLimits;
+}
 const App: React.FC = () => {
   const sensorData = useSensorData();
-
+  const datetimeLimits = useDatetimeLimits();
+  const globalProps = { sensorData, datetimeLimits };
   return (
     <IonApp>
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
             <Route exact path="/tab1">
-              <Tab1 sensorData={sensorData} />
+              <Tab1 globalProps={globalProps} />
             </Route>
             <Route exact path="/tab2">
               <Tab2 />
             </Route>
             <Route path="/tab3">
-              <Tab3 sensorData={sensorData} />
+              <Tab3 globalProps={globalProps} />
             </Route>
             <Route exact path="/">
               <Redirect to="/tab1" />
