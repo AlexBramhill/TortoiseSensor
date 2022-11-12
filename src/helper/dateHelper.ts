@@ -40,6 +40,12 @@ export const endOfDay = (date: Date): Date => {
   return tempDate;
 };
 
+export const addDays = (date: Date, days: number): Date => {
+  let tempDate = new Date(date);
+  tempDate.setDate(tempDate.getDate() + days);
+  return tempDate;
+};
+
 export const amountOfDaysBetweenDates = (
   startDate: Date,
   endDate: Date

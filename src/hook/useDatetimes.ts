@@ -1,27 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { addDays } from "../helper/dateHelper";
 
-export interface IDateTimeLimits {
-  startDateTime: IDateTimeLimit;
-  endDateTime: IDateTimeLimit;
+export interface IDatetimeLimits {
+  startDateTime: IDatetime;
+  endDateTime: IDatetime;
 }
 
-export interface IDateTimeLimit {
-  dateTime: Date;
-  setDateTime: React.Dispatch<React.SetStateAction<Date>>;
+export interface IDatetime {
+  datetime: Date;
+  updateDatetime: (datetime: Date) => void;
 }
-export const useDatetimes = (startDate?: Date, endDate?: Date) => {
-  const [startDateTime, setStartDateTime] = React.useState<Date>(
+export const useDatetimeLimits = (startDate?: Date, endDate?: Date) => {
+  const [startDatetime, setStartDatetime] = React.useState<Date>(
     startDate || new Date("2022-10-09T01:05:55.378Z")
   );
-  const [endDateTime, setEndDateTime] = React.useState<Date>(
+  const [endDatetime, setEndDatetime] = React.useState<Date>(
     endDate || new Date()
   );
 
+  const updateStartDatetime = (newDatetime: Date) => {
+    setStartDatetime(newDatetime);
+    if (endDatetime < newDatetime) {
+      setEndDatetime(addDays(newDatetime, +1));
+    }
+  };
+
+  const updateEndDatetime = (newDatetime: Date) => {
+    setEndDatetime(newDatetime);
+    if (startDatetime > newDatetime) {
+      console.log("hi");
+      setStartDatetime(addDays(newDatetime, -1));
+    }
+  };
+
   return {
     startDateTime: {
-      dateTime: startDateTime,
-      setDateTime: setStartDateTime,
+      datetime: startDatetime,
+      updateDatetime: updateStartDatetime,
     },
-    endDateTime: { dateTime: endDateTime, setDateTime: setEndDateTime },
-  } as IDateTimeLimits;
+    endDateTime: { datetime: endDatetime, updateDatetime: updateEndDatetime },
+  } as IDatetimeLimits;
 };
