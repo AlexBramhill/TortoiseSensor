@@ -3,11 +3,11 @@ import {
   IonHeader,
   IonPage,
   IonTitle,
-  IonToolbar
+  IonToolbar,
 } from "@ionic/react";
 import {
   DuelDatePicker,
-  IDuelDatePickerProps
+  IDuelDatePickerProps,
 } from "../components/cards/DuelDatePicker";
 import Table, { ITableProps } from "../components/Table";
 import { IUseData } from "../hook/useData";
@@ -16,7 +16,7 @@ import "./Tab3.css";
 const Tab3 = ({ props }: { props: IUseData }) => {
   const { loading, dataSummary, filteredDataAndSummary, update } = props;
   const duelDatePickerProps: IDuelDatePickerProps = {
-    title: "Dates",
+    title: "Date Range",
     datePicker1Props: {
       datetime: filteredDataAndSummary.filterStartDate,
       updateDatetime: update.updateStartDatetime,
@@ -38,13 +38,13 @@ const Tab3 = ({ props }: { props: IUseData }) => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>All Data</IonTitle>
+          <IonTitle>Data</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen scrollY={false}>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Tab 3</IonTitle>
+            <IonTitle size="large">Data</IonTitle>
           </IonToolbar>
         </IonHeader>
         <DuelDatePicker props={duelDatePickerProps} />

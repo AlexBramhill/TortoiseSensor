@@ -13,7 +13,7 @@ export interface IDuelDatePickerProps {
 }
 export const DuelDatePicker = ({ props }: { props: IDuelDatePickerProps }) => {
   return (
-    <IonCard color="primary">
+    <IonCard color="light">
       <IonCardHeader>
         <IonCardTitle>{props.title}</IonCardTitle>
       </IonCardHeader>

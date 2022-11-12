@@ -1,10 +1,17 @@
 import {
-  IonContent, IonHeader, IonPage, IonTitle, IonToolbar
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonPage,
+  IonRow,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/react";
-import { DataDisplay } from "../components/cards/DataPointDisplay";
+import { DataPointDisplay } from "../components/cards/DataPointDisplay";
 import {
   DuelDatePicker,
-  IDuelDatePickerProps
+  IDuelDatePickerProps,
 } from "../components/cards/DuelDatePicker";
 import Loading from "../components/Loading";
 import { IUseData } from "../hook/useData";
@@ -14,7 +21,7 @@ const Tab1 = ({ props }: { props: IUseData }) => {
   const { loading, dataSummary, filteredDataAndSummary, update } = props;
 
   const duelDatePickerProps: IDuelDatePickerProps = {
-    title: "Dates",
+    title: "Date Range",
     datePicker1Props: {
       datetime: filteredDataAndSummary.filterStartDate,
       updateDatetime: update.updateStartDatetime,
@@ -39,25 +46,56 @@ const Tab1 = ({ props }: { props: IUseData }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large">Summary</IonTitle>
+          </IonToolbar>
+        </IonHeader>
         <DuelDatePicker props={duelDatePickerProps} />
-        <DataDisplay
-          props={{
-            title: "Average Temp",
-            dataPoint: props.filteredDataAndSummary.lastDataPoint,
-          }}
-        />
-        <DataDisplay
-          props={{
-            title: "Last Reading",
-            dataPoint: props.filteredDataAndSummary.lastDataPoint,
-          }}
-        />
-        <DataDisplay
-          props={{
-            title: "Missed Reading",
-            dataPoint: props.filteredDataAndSummary.lastDataPoint,
-          }}
-        />
+        <IonGrid>
+          <IonRow>
+            <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+              <DataPointDisplay
+                props={{
+                  title: "High",
+                  dataPoint: props.filteredDataAndSummary.maxDataPoint,
+                }}
+              />
+            </IonCol>
+            <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+              <DataPointDisplay
+                props={{
+                  title: "Low",
+                  dataPoint: props.filteredDataAndSummary.minDataPoint,
+                }}
+              />
+            </IonCol>
+            <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+              <DataPointDisplay
+                props={{
+                  title: "Av",
+                  dataPoint: props.filteredDataAndSummary.lastDataPoint,
+                }}
+              />
+            </IonCol>
+            <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+              <DataPointDisplay
+                props={{
+                  title: "Last",
+                  dataPoint: props.filteredDataAndSummary.lastDataPoint,
+                }}
+              />
+            </IonCol>
+            <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+              <DataPointDisplay
+                props={{
+                  title: "Miss",
+                  dataPoint: props.filteredDataAndSummary.lastDataPoint,
+                }}
+              />
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );

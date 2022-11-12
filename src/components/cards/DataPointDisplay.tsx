@@ -1,25 +1,30 @@
 import {
-    IonCard, IonCardContent, IonCardHeader,
-    IonCardTitle, IonText
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonText,
 } from "@ionic/react";
 import { DataPoint } from "../../class/DataPoint";
+import "./Cards.css";
 
 export interface IDataPointDisplay {
   title: string;
   dataPoint: DataPoint | null;
 }
-export const DataDisplay = ({ props }: { props: IDataPointDisplay }) => {
+export const DataPointDisplay = ({ props }: { props: IDataPointDisplay }) => {
   return (
-    <IonCard color="primary">
+    <IonCard color="light" style={{ margin: 0 }}>
       <IonCardHeader>
-        <IonCardTitle>{props.title}</IonCardTitle>
+        <IonCardTitle>
+          {props.title}: <br></br>
+          {props.dataPoint?.temp}°C
+        </IonCardTitle>
+        <IonCardSubtitle>
+          on {props.dataPoint?.getFormattedDate()}
+        </IonCardSubtitle>
       </IonCardHeader>
-      <IonCardContent>
-        <IonText>
-          <p>Date: {props.dataPoint?.getFormattedDate()}</p>
-          <p>Temp: {props.dataPoint?.temp}</p>
-        </IonText>
-      </IonCardContent>
     </IonCard>
   );
 };

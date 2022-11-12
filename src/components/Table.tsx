@@ -3,7 +3,7 @@ import {
   IonContent,
   IonGrid,
   IonRippleEffect,
-  IonRow
+  IonRow,
 } from "@ionic/react";
 import React from "react";
 import { DataPoint } from "../class/DataPoint";
