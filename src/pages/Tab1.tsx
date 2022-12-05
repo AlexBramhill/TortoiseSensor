@@ -8,11 +8,13 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { DataPointDisplay } from "../components/cards/DataPointDisplay";
+import { DataPointCard } from "../components/cards/DataPointCard";
 import {
   DuelDatePicker,
   IDuelDatePickerProps,
 } from "../components/cards/DuelDatePicker";
+import { NullPointsCard } from "../components/cards/NullPointsCard";
+import { TempCard } from "../components/cards/TempCard";
 import Loading from "../components/Loading";
 import { IUseData } from "../hook/useData";
 import "./Tab1.css";
@@ -55,7 +57,7 @@ const Tab1 = ({ props }: { props: IUseData }) => {
         <IonGrid>
           <IonRow>
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
-              <DataPointDisplay
+              <DataPointCard
                 props={{
                   title: "High",
                   dataPoint: props.filteredDataAndSummary.maxDataPoint,
@@ -63,7 +65,7 @@ const Tab1 = ({ props }: { props: IUseData }) => {
               />
             </IonCol>
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
-              <DataPointDisplay
+              <DataPointCard
                 props={{
                   title: "Low",
                   dataPoint: props.filteredDataAndSummary.minDataPoint,
@@ -71,15 +73,15 @@ const Tab1 = ({ props }: { props: IUseData }) => {
               />
             </IonCol>
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
-              <DataPointDisplay
+              <TempCard
                 props={{
                   title: "Av",
-                  dataPoint: props.filteredDataAndSummary.lastDataPoint,
+                  temp: props.filteredDataAndSummary.averageTemp,
                 }}
               />
             </IonCol>
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
-              <DataPointDisplay
+              <DataPointCard
                 props={{
                   title: "Last",
                   dataPoint: props.filteredDataAndSummary.lastDataPoint,
@@ -87,10 +89,10 @@ const Tab1 = ({ props }: { props: IUseData }) => {
               />
             </IonCol>
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
-              <DataPointDisplay
+              <NullPointsCard
                 props={{
                   title: "Miss",
-                  dataPoint: props.filteredDataAndSummary.lastDataPoint,
+                  nullPoints: props.filteredDataAndSummary.nullPoints,
                 }}
               />
             </IonCol>

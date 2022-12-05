@@ -41,7 +41,7 @@ const Tab3 = ({ props }: { props: IUseData }) => {
           <IonTitle>Data</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen scrollY={false}>
+      <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Data</IonTitle>

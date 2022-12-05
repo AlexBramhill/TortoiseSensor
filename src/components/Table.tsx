@@ -72,25 +72,17 @@ const Table = ({ props }: { props: ITableProps }) => {
     return <Loading />;
   }
   return (
-    <IonContent>
-      <IonGrid fixed={true}>
-        <IonRow className="table-title">
-          <TableHeader
-            header={ETableHeader.DATE}
-            changeSorting={changeSorting}
-          />
-          <TableHeader
-            header={ETableHeader.TEMP}
-            changeSorting={changeSorting}
-          />
-        </IonRow>
-        {[...props.dataPoints]
-          .sort((a, b) => sortBy(a, b, sortColumn))
-          .map((dataPoint: DataPoint) => (
-            <TableRow dataPoint={dataPoint} key={dataPoint.date.getTime()} />
-          ))}
-      </IonGrid>
-    </IonContent>
+    <IonGrid fixed={true}>
+      <IonRow className="table-title">
+        <TableHeader header={ETableHeader.DATE} changeSorting={changeSorting} />
+        <TableHeader header={ETableHeader.TEMP} changeSorting={changeSorting} />
+      </IonRow>
+      {[...props.dataPoints]
+        .sort((a, b) => sortBy(a, b, sortColumn))
+        .map((dataPoint: DataPoint) => (
+          <TableRow dataPoint={dataPoint} key={dataPoint.date.getTime()} />
+        ))}
+    </IonGrid>
   );
 };
 

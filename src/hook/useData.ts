@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { DataPoint } from "../class/DataPoint";
+import { getFirstDataPoint, getLastDataPoint } from "../helper/dataHelper";
 import { addDays } from "../helper/dateHelper";
 import { useSensorData } from "./useSensorData";
 
@@ -16,6 +17,7 @@ export interface IFilteredDataAndSummary {
   lastDataPoint: DataPoint | null;
   maxDataPoint: DataPoint | null;
   minDataPoint: DataPoint | null;
+  averageTemp: number | null;
   nullPoints: DataPoint[];
   filteredDataPoints: DataPoint[];
 }
@@ -50,6 +52,7 @@ export const useData = () => {
       lastDataPoint: null,
       maxDataPoint: null,
       minDataPoint: null,
+      averageTemp: null,
       nullPoints: [],
       filteredDataPoints: [],
     });
@@ -77,17 +80,13 @@ export const useData = () => {
     if (sensorData.loading) {
       return;
     }
-    const minDateDataPoint = sensorData.sensorData.reduce((a, b) =>
-      a.date < b.date ? a : b
-    );
-    const maxDateDataPoint = sensorData.sensorData.reduce((a, b) =>
-      a.date > b.date ? a : b
-    );
-    const dataSummary = {
-      minDate: minDateDataPoint.date,
-      maxDate: maxDateDataPoint.date,
+    const minDateDataPoint = getFirstDataPoint(sensorData.sensorData);
+    const maxDateDataPoint = getLastDataPoint(sensorData.sensorData);
+    const newDataSummary = {
+      minDate: minDateDataPoint?.date || dataSummary.minDate,
+      maxDate: maxDateDataPoint?.date || dataSummary.maxDate,
     };
-    setDataSummary(dataSummary);
+    setDataSummary(newDataSummary);
   };
 
   const refreshFilteredDataAndSummary = () => {
@@ -112,6 +111,16 @@ export const useData = () => {
     const maxDataPoint = filteredDataPoints.reduce((a, b) =>
       a.temp === null || b.temp === null || a.temp > b.temp ? a : b
     );
+    const averageTemp =
+      Math.round(
+        (filteredDataPoints.reduce(
+          (sum, { temp }) => (temp ? sum + temp : sum),
+          0
+        ) /
+          filteredDataPoints.length) *
+          100
+      ) / 100;
+
     const nullPoints = filteredDataPoints.filter(
       (dataPoint) => dataPoint.temp === null
     );
@@ -121,6 +130,7 @@ export const useData = () => {
       lastDataPoint,
       maxDataPoint,
       minDataPoint,
+      averageTemp,
       nullPoints,
       filteredDataPoints,
     };
