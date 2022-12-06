@@ -20,10 +20,12 @@ export const Card = ({ props }: { props: ICardProps }) => {
     >
       <IonCardHeader>
         <IonCardTitle>
-          {props.title}: <br></br>
-          {props.header}
+          <h2 className="summary-card--heading-title">{props.title}</h2>
+          <h2 className="summary-card--heading">{props.header}</h2>
         </IonCardTitle>
-        <IonCardSubtitle>{props.subtitle}</IonCardSubtitle>
+        <IonCardSubtitle className="summary-card--subtitle">
+          {props.subtitle}
+        </IonCardSubtitle>
       </IonCardHeader>
     </IonCard>
   );

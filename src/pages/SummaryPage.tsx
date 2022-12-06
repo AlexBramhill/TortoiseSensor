@@ -25,9 +25,9 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
     <IonPage>
       <DateToggleButtons props={filterDate} />
       <IonContent fullscreen>
-        <IonGrid>
-          <IonRow>
-            <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+        <IonGrid className="row-cards">
+          <IonRow className="row-cards">
+            <IonCol size="6" size-sm="4" size-lg="4" size-xl="4">
               <DataPointCard
                 props={{
                   title: "High",
@@ -35,7 +35,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
                 }}
               />
             </IonCol>
-            <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+            <IonCol size="6" size-sm="4" size-lg="4" size-xl="4">
               <DataPointCard
                 props={{
                   title: "Low",
@@ -43,7 +43,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
                 }}
               />
             </IonCol>
-            <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+            <IonCol size="6" size-sm="4" size-lg="4" size-xl="4">
               <TempCard
                 props={{
                   title: "Average",
@@ -52,7 +52,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
                 }}
               />
             </IonCol>
-            <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+            <IonCol size="6" size-sm="4" size-lg="4" size-xl="4">
               <DataPointCard
                 props={{
                   title: "Last Reading",
@@ -61,7 +61,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
               />
             </IonCol>
             {filteredData.getLastDataPoint()?.isMissing() ? (
-              <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+              <IonCol size="6" size-sm="4" size-lg="4" size-xl="4">
                 <DataPointCard
                   props={{
                     title: "Last Success Reading",
@@ -72,7 +72,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
             ) : (
               ""
             )}
-            <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+            <IonCol size="6" size-sm="4" size-lg="4" size-xl="4">
               <NullPointsCard
                 props={{
                   title: "Missed Reading Count",
