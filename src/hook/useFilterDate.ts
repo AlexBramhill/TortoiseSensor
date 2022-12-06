@@ -6,6 +6,7 @@ export enum EDateFilterType {
   LAST_HOUR = "Last hour",
   LAST_DAY = "Last day",
   LAST_WEEK = "Last week",
+  ALL = "All time",
 }
 
 export interface IFilterDate {
@@ -16,7 +17,7 @@ export interface IFilterDate {
 
 export const useFilterDate = () => {
   const [dateFilterType, setDateFilterType] = React.useState<EDateFilterType>(
-    EDateFilterType.LAST_WEEK
+    EDateFilterType.ALL
   );
 
   const changeDateFilterType = (newDateRange: EDateFilterType) => {
@@ -30,12 +31,10 @@ export const useFilterDate = () => {
         return { minDate: minusDays(now, 1), maxDate: now } as IDateRange;
       case EDateFilterType.LAST_DAY:
         return { minDate: minusDays(now, 1), maxDate: now } as IDateRange;
-      // default inc 1 week
+      case EDateFilterType.LAST_WEEK:
+        return { minDate: minusDays(now, 7), maxDate: now } as IDateRange;
       default:
-        return {
-          minDate: minusDays(now, 7),
-          maxDate: now,
-        } as IDateRange;
+        return {} as IDateRange;
     }
   };
 
