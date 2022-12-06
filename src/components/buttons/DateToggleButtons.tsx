@@ -20,7 +20,7 @@ export const DateToggleButtons = ({ props }: { props: IFilterDate }) => {
                 onClick={() => props.changeDateFilterType(filterType)}
                 value={filterType}
                 color={
-                  filterType === props.dateFilterType ? "Default" : "segment"
+                  filterType === props.dateFilterType ? "primary" : "segment"
                 }
               >
                 {filterType}

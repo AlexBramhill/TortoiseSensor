@@ -47,7 +47,8 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
               <TempCard
                 props={{
                   title: "Average",
-                  temp: filteredData.getAverageTemp(),
+                  temp: filteredData.getAverageTempFormatted(),
+                  tempAcceptance: filteredData.getAverageTempAcceptance(),
                 }}
               />
             </IonCol>

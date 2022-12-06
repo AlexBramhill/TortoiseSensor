@@ -3,7 +3,7 @@ import { formatDateTime } from "../helper/dateHelper";
 export enum EDangerLevel {
   DANGER_LOW = "danger",
   LOW = "warning",
-  SUITABLE = "primary",
+  SUITABLE = "success",
   HIGH = "warning",
   DANGER_HIGH = "danger",
   MISSING = "warning",

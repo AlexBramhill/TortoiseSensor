@@ -2,6 +2,7 @@ import {
   IonCol,
   IonContent,
   IonGrid,
+  IonItem,
   IonRippleEffect,
   IonRow,
 } from "@ionic/react";

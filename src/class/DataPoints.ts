@@ -1,5 +1,5 @@
 import { IDateRange } from "../interface/IDateRange";
-import { DataPoint } from "./DataPoint";
+import { DataPoint, EDangerLevel } from "./DataPoint";
 
 export class DataPoints {
   dataPoints: DataPoint[];
@@ -57,7 +57,7 @@ export class DataPoints {
     );
   }
 
-  getAverageTemp(): string | null {
+  getAverageTempFormatted(): string | null {
     const dataPointsWithoutNulls = this.dataPoints.filter(
       (dataPoint) => dataPoint.temp !== null
     );
@@ -78,6 +78,46 @@ export class DataPoints {
     );
   }
 
+  getAverageTemp(): string | number | null {
+    const dataPointsWithoutNulls = this.dataPoints.filter(
+      (dataPoint) => dataPoint.temp !== null
+    );
+    if (dataPointsWithoutNulls.length === 0) {
+      return "Missing";
+    }
+    return (
+      Math.round(
+        (dataPointsWithoutNulls.reduce(
+          (sum, { temp }) => (temp ? sum + temp : sum),
+          0
+        ) /
+          this.dataPoints.length) *
+          100
+      ) / 100
+    );
+  }
+  // Todo tidy how we do this everywhere
+  getAverageTempAcceptance(): string {
+    const averageTemp = this.getAverageTemp();
+    //if statements ... gotta go gfast
+    if (averageTemp === "Missing" || !averageTemp) {
+      return EDangerLevel.MISSING;
+    }
+    if (averageTemp <= 1) {
+      return EDangerLevel.DANGER_LOW;
+    }
+    if (averageTemp <= 3) {
+      return EDangerLevel.LOW;
+    }
+    if (averageTemp >= 9) {
+      return EDangerLevel.DANGER_HIGH;
+    }
+    if (averageTemp >= 7) {
+      return EDangerLevel.HIGH;
+    }
+    return EDangerLevel.SUITABLE;
+  }
+
   getNullPoints(): DataPoints | null {
     return new DataPoints(
       this.dataPoints.filter((dataPoint) => dataPoint.temp === null)
@@ -86,12 +126,12 @@ export class DataPoints {
 
   getNullPointsAcceptance(): string {
     const nullCount = this.getNullPoints()?.dataPoints?.length || 0;
-    if (nullCount >= 5) {
+    if (nullCount >= 1) {
       return "warning";
     }
     if (nullCount >= 10) {
       return "danger";
     }
-    return "primary";
+    return "success";
   }
 }

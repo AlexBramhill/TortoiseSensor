@@ -15,14 +15,23 @@
   transform: translateY(15%);
 }
 
+/* 
 .table-row:nth-of-type(odd) {
   background-color: var(--ion-color-light-shade);
 }
 
 .table-row:hover {
   background-color: var(--ion-color-light-tint);
+} */
+
+.table-title {
+  background-color: var(--ion-color-primary);
 }
 
-.table-title :hover {
-  background-color: var(--ion-color-light-tint);
+.table-row {
+  border-bottom: 1px solid var(--ion-color-light-tint);
+}
+
+.table-col {
+  border-bottom: 0px;
 }
