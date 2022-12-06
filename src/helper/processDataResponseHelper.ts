@@ -1,4 +1,5 @@
 import { DataPoint } from "../class/DataPoint";
+import { DataPoints } from "../class/DataPoints";
 
 export const processRawDataPoint = (rawDataPoint: [number, string | null]) => {
   const date = new Date(rawDataPoint[0] * 1000);
@@ -13,5 +14,5 @@ export const processRawDataPoints = (
   rawDataPoints.forEach((point) => {
     tempList.push(processRawDataPoint(point));
   });
-  return tempList;
+  return new DataPoints(tempList);
 };

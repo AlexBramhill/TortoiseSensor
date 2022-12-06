@@ -6,37 +6,17 @@ import {
   IonPage,
   IonRow,
   IonTitle,
-  IonToolbar,
+  IonToolbar
 } from "@ionic/react";
 import { DataPointCard } from "../components/cards/DataPointCard";
-import {
-  DuelDatePicker,
-  IDuelDatePickerProps,
-} from "../components/cards/DuelDatePicker";
 import { NullPointsCard } from "../components/cards/NullPointsCard";
 import { TempCard } from "../components/cards/TempCard";
 import Loading from "../components/Loading";
-import { IUseData } from "../hook/useData";
+import { IUseFilteredData } from "../hook/useFilteredData";
 import "./Tab1.css";
 
-const Tab1 = ({ props }: { props: IUseData }) => {
-  const { loading, dataSummary, filteredDataAndSummary, update } = props;
-
-  const duelDatePickerProps: IDuelDatePickerProps = {
-    title: "Date Range",
-    datePicker1Props: {
-      datetime: filteredDataAndSummary.filterStartDate,
-      updateDatetime: update.updateStartDatetime,
-      min: dataSummary.minDate,
-      max: dataSummary.maxDate,
-    },
-    datePicker2Props: {
-      datetime: filteredDataAndSummary.filterEndDate,
-      updateDatetime: update.updateEndDatetime,
-      min: dataSummary.minDate,
-      max: dataSummary.maxDate,
-    },
-  };
+const Tab1 = ({ props }: { props: IUseFilteredData }) => {
+  const { loading, filteredData, filterDate, refreshSensorData } = props;
   if (loading) {
     return <Loading />;
   }
@@ -53,14 +33,14 @@ const Tab1 = ({ props }: { props: IUseData }) => {
             <IonTitle size="large">Summary</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <DuelDatePicker props={duelDatePickerProps} />
+        {`${filterDate.dateFilterType}`}
         <IonGrid>
           <IonRow>
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
               <DataPointCard
                 props={{
                   title: "High",
-                  dataPoint: props.filteredDataAndSummary.maxDataPoint,
+                  dataPoint: filteredData.getMaxDataPoint(),
                 }}
               />
             </IonCol>
@@ -68,7 +48,7 @@ const Tab1 = ({ props }: { props: IUseData }) => {
               <DataPointCard
                 props={{
                   title: "Low",
-                  dataPoint: props.filteredDataAndSummary.minDataPoint,
+                  dataPoint: filteredData.getMinDataPoint(),
                 }}
               />
             </IonCol>
@@ -76,7 +56,7 @@ const Tab1 = ({ props }: { props: IUseData }) => {
               <TempCard
                 props={{
                   title: "Av",
-                  temp: props.filteredDataAndSummary.averageTemp,
+                  temp: filteredData.getAverageTemp(),
                 }}
               />
             </IonCol>
@@ -84,15 +64,27 @@ const Tab1 = ({ props }: { props: IUseData }) => {
               <DataPointCard
                 props={{
                   title: "Last",
-                  dataPoint: props.filteredDataAndSummary.lastDataPoint,
+                  dataPoint: filteredData.getLastDataPoint(),
                 }}
               />
             </IonCol>
+            {filteredData.getLastDataPoint()?.isMissing() ? (
+              <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
+                <DataPointCard
+                  props={{
+                    title: "Last Actual",
+                    dataPoint: filteredData.getLastNonMissingDataPoint(),
+                  }}
+                />
+              </IonCol>
+            ) : (
+              ""
+            )}
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
               <NullPointsCard
                 props={{
-                  title: "Miss",
-                  nullPoints: props.filteredDataAndSummary.nullPoints,
+                  title: "Missed",
+                  nullPoints: filteredData.getNullPoints(),
                 }}
               />
             </IonCol>

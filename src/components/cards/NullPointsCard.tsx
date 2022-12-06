@@ -1,22 +1,16 @@
-import { DataPoint } from "../../class/DataPoint";
-import { getLastDataPoint } from "../../helper/dataHelper";
+import { DataPoints } from "../../class/DataPoints";
 import { Card, ICardProps } from "./Card";
 import "./Cards.css";
 
 export interface INullPointsProps {
   title: string;
-  nullPoints: DataPoint[] | null;
+  nullPoints: DataPoints | null;
 }
 export const NullPointsCard = ({ props }: { props: INullPointsProps }) => {
-  console.log(props.nullPoints);
   const cardProps: ICardProps = {
     title: props.title,
-    header: `${props.nullPoints?.length}`,
-    subtitle: `${
-      !props.nullPoints || props.nullPoints.length
-        ? "last: " + getLastDataPoint(props.nullPoints)?.getFormattedDate()
-        : ""
-    }`,
+    header: `${props.nullPoints?.dataPoints.length}`,
+    subtitle: `${props.nullPoints?.getLastDataPoint()?.getFormattedDate()}`,
   };
   return <Card props={cardProps} />;
 };

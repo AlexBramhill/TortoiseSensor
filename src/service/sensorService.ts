@@ -1,8 +1,8 @@
-import { DataPoint } from "../class/DataPoint";
+import { DataPoints } from "../class/DataPoints";
 import { getDummyData } from "../dummyData/dimmyData";
 import { processRawDataPoints } from "../helper/processDataResponseHelper";
 
-export const getLatestTemperatures = (): Promise<DataPoint[]> => {
+export const getLatestTemperatures = (): Promise<DataPoints> => {
   if (process.env.NODE_ENV === "development") {
     return handleDevRequest();
   }
@@ -29,10 +29,10 @@ export const getAllTemperatures = () => {
     });
 };
 
-const handleDevRequest = (): Promise<DataPoint[]> => {
+const handleDevRequest = (): Promise<DataPoints> => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(getDummyData());
+      resolve(new DataPoints(getDummyData()));
     }, 1000);
   });
 };

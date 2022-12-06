@@ -3,35 +3,16 @@ import {
   IonHeader,
   IonPage,
   IonTitle,
-  IonToolbar,
+  IonToolbar
 } from "@ionic/react";
-import {
-  DuelDatePicker,
-  IDuelDatePickerProps,
-} from "../components/cards/DuelDatePicker";
 import Table, { ITableProps } from "../components/Table";
-import { IUseData } from "../hook/useData";
+import { IUseFilteredData } from "../hook/useFilteredData";
 import "./Tab3.css";
 
-const Tab3 = ({ props }: { props: IUseData }) => {
-  const { loading, dataSummary, filteredDataAndSummary, update } = props;
-  const duelDatePickerProps: IDuelDatePickerProps = {
-    title: "Date Range",
-    datePicker1Props: {
-      datetime: filteredDataAndSummary.filterStartDate,
-      updateDatetime: update.updateStartDatetime,
-      min: dataSummary.minDate,
-      max: dataSummary.maxDate,
-    },
-    datePicker2Props: {
-      datetime: filteredDataAndSummary.filterEndDate,
-      updateDatetime: update.updateEndDatetime,
-      min: dataSummary.minDate,
-      max: dataSummary.maxDate,
-    },
-  };
+const Tab3 = ({ props }: { props: IUseFilteredData }) => {
+  const { loading, filteredData, filterDate, refreshSensorData } = props;
   const tableProps: ITableProps = {
-    dataPoints: filteredDataAndSummary.filteredDataPoints,
+    dataPoints: filteredData.dataPoints,
     loading: loading,
   };
   return (
@@ -47,7 +28,6 @@ const Tab3 = ({ props }: { props: IUseData }) => {
             <IonTitle size="large">Data</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <DuelDatePicker props={duelDatePickerProps} />
         <Table props={tableProps} />
       </IonContent>
     </IonPage>

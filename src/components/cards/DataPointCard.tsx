@@ -9,7 +9,7 @@ export interface IDataPointProps {
 export const DataPointCard = ({ props }: { props: IDataPointProps }) => {
   const cardProps: ICardProps = {
     title: props.title,
-    header: `${props.dataPoint?.temp}°C`,
+    header: `${props.dataPoint?.getFormattedTemp()}`,
     subtitle: `on ${props.dataPoint?.getFormattedDate()}`,
   };
   return <Card props={cardProps} />;

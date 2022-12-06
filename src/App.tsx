@@ -6,7 +6,7 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
-  setupIonicReact,
+  setupIonicReact
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { ellipse, square, triangle } from "ionicons/icons";
@@ -29,7 +29,7 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
-import { useData } from "./hook/useData";
+import { useFilteredData } from "./hook/useFilteredData";
 import Tab1 from "./pages/Tab1";
 import Tab2 from "./pages/Tab2";
 import Tab3 from "./pages/Tab3";
@@ -38,7 +38,7 @@ import "./theme/variables.css";
 setupIonicReact();
 
 const App: React.FC = () => {
-  const data = useData();
+  const data = useFilteredData();
   const globalProps = data;
   return (
     <IonApp>
