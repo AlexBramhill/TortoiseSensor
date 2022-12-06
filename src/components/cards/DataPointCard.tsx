@@ -11,6 +11,7 @@ export const DataPointCard = ({ props }: { props: IDataPointProps }) => {
     title: props.title,
     header: `${props.dataPoint?.getFormattedTemp()}`,
     subtitle: `on ${props.dataPoint?.getFormattedDate()}`,
+    color: props.dataPoint?.getDangerLevel()
   };
   return <Card props={cardProps} />;
 };

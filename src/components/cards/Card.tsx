@@ -10,10 +10,14 @@ export interface ICardProps {
   title?: string;
   header?: string | null;
   subtitle?: string | null;
+  color?: string;
 }
 export const Card = ({ props }: { props: ICardProps }) => {
   return (
-    <IonCard color="light" style={{ margin: 0 }}>
+    <IonCard
+      color={props.color ? props.color : "primary"}
+      style={{ margin: 0 }}
+    >
       <IonCardHeader>
         <IonCardTitle>
           {props.title}: <br></br>

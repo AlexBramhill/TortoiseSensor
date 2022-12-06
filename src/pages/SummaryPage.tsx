@@ -46,7 +46,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
               <TempCard
                 props={{
-                  title: "Av",
+                  title: "Average",
                   temp: filteredData.getAverageTemp(),
                 }}
               />
@@ -54,7 +54,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
               <DataPointCard
                 props={{
-                  title: "Last",
+                  title: "Last Reading",
                   dataPoint: filteredData.getLastDataPoint(),
                 }}
               />
@@ -63,7 +63,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
               <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
                 <DataPointCard
                   props={{
-                    title: "Last Actual",
+                    title: "Last Successful Reading",
                     dataPoint: filteredData.getLastNonMissingDataPoint(),
                   }}
                 />
@@ -74,7 +74,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
               <NullPointsCard
                 props={{
-                  title: "Missed",
+                  title: "Missed Reading Count",
                   nullPoints: filteredData.getNullPoints(),
                 }}
               />

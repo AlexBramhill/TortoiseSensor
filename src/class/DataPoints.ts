@@ -65,19 +65,33 @@ export class DataPoints {
       return "Missing";
     }
     return (
-      Math.round(
-        (dataPointsWithoutNulls.reduce(
-          (sum, { temp }) => (temp ? sum + temp : sum),
-          0
-        ) /
-          this.dataPoints.length) *
-          100
-      ) / 100
-    ).toString();
+      (
+        Math.round(
+          (dataPointsWithoutNulls.reduce(
+            (sum, { temp }) => (temp ? sum + temp : sum),
+            0
+          ) /
+            this.dataPoints.length) *
+            100
+        ) / 100
+      ).toString() + "°C"
+    );
   }
+
   getNullPoints(): DataPoints | null {
     return new DataPoints(
       this.dataPoints.filter((dataPoint) => dataPoint.temp === null)
     );
+  }
+
+  getNullPointsAcceptance(): string {
+    const nullCount = this.getNullPoints()?.dataPoints?.length || 0;
+    if (nullCount >= 5) {
+      return "warning";
+    }
+    if (nullCount >= 10) {
+      return "danger";
+    }
+    return "primary";
   }
 }

@@ -10,7 +10,10 @@ export const NullPointsCard = ({ props }: { props: INullPointsProps }) => {
   const cardProps: ICardProps = {
     title: props.title,
     header: `${props.nullPoints?.dataPoints.length}`,
-    subtitle: `${props.nullPoints?.getLastDataPoint()?.getFormattedDate()}`,
+    subtitle: `last: ${props.nullPoints
+      ?.getLastDataPoint()
+      ?.getFormattedDate()}`,
+    color: `${props.nullPoints?.getNullPointsAcceptance()}`,
   };
   return <Card props={cardProps} />;
 };
