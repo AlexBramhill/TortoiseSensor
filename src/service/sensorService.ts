@@ -1,5 +1,5 @@
 import { DataPoints } from "../class/DataPoints";
-import { getDummyData } from "../dummyData/dimmyData";
+import { getDummyData } from "../dummyData/dummyData";
 import { processRawDataPoints } from "../helper/processDataResponseHelper";
 
 export const getLatestTemperatures = (): Promise<DataPoints> => {
