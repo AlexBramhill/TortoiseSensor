@@ -1,26 +1,31 @@
-import React from "react";
-import { IonButton, IonButtons, IonTitle, IonToolbar } from "@ionic/react";
+import {
+  IonHeader,
+  IonSegment,
+  IonSegmentButton,
+  IonToolbar,
+} from "@ionic/react";
 
-import "./Buttons.css";
 import { EDateFilterType, IFilterDate } from "../../hook/useFilterDate";
+import "./Buttons.css";
 
 export const DateToggleButtons = ({ props }: { props: IFilterDate }) => {
   return (
-    <IonToolbar>
-      <IonButtons>
-        {Object.values(EDateFilterType).map((filterType) => {
-          return (
-            <IonButton
-              size="small"
-              key={filterType}
-              fill={filterType === props.dateFilterType ? "solid" : "outline"}
-              onClick={() => props.changeDateFilterType(filterType)}
-            >
-              {filterType}
-            </IonButton>
-          );
-        })}
-      </IonButtons>
-    </IonToolbar>
+    <IonHeader>
+      <IonToolbar>
+        <IonSegment value={props.dateFilterType}>
+          {Object.values(EDateFilterType).map((filterType) => {
+            return (
+              <IonSegmentButton
+                key={filterType}
+                onClick={() => props.changeDateFilterType(filterType)}
+                value={filterType}
+              >
+                {filterType}
+              </IonSegmentButton>
+            );
+          })}
+        </IonSegment>
+      </IonToolbar>
+    </IonHeader>
   );
 };
