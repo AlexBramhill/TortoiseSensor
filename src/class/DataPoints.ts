@@ -57,17 +57,23 @@ export class DataPoints {
     );
   }
 
-  getAverageTemp(): number | null {
+  getAverageTemp(): string | null {
+    const dataPointsWithoutNulls = this.dataPoints.filter(
+      (dataPoint) => dataPoint.temp !== null
+    );
+    if (dataPointsWithoutNulls.length === 0) {
+      return "Missing";
+    }
     return (
       Math.round(
-        (this.dataPoints.reduce(
+        (dataPointsWithoutNulls.reduce(
           (sum, { temp }) => (temp ? sum + temp : sum),
           0
         ) /
           this.dataPoints.length) *
           100
       ) / 100
-    );
+    ).toString();
   }
   getNullPoints(): DataPoints | null {
     return new DataPoints(

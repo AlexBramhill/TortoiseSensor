@@ -3,12 +3,12 @@ import "./Cards.css";
 
 export interface ITempCard {
   title: string;
-  temp: number | null;
+  temp: string | null;
 }
 export const TempCard = ({ props }: { props: ITempCard }) => {
   const cardProps: ICardProps = {
     title: props.title,
-    header: `${props.temp}°C`,
+    header: `${props.temp}`,
   };
   return <Card props={cardProps} />;
 };

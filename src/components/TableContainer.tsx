@@ -9,7 +9,7 @@ import React from "react";
 import { DataPoint } from "../class/DataPoint";
 import { formatDateTimeReversed } from "../helper/dateHelper";
 import Loading from "./Loading";
-import "./Table.css";
+import "./TableContainer.css";
 
 enum ETableHeader {
   DATE = "Date",
@@ -21,7 +21,7 @@ interface ITableSorting {
   ascending: boolean;
 }
 
-export interface ITableProps {
+export interface ITableContainerProps {
   dataPoints: DataPoint[];
   loading: Boolean;
 }
@@ -52,7 +52,7 @@ const TableRow = ({ dataPoint }: { dataPoint: DataPoint }) => (
   </IonRow>
 );
 
-const Table = ({ props }: { props: ITableProps }) => {
+const TableContainer = ({ props }: { props: ITableContainerProps }) => {
   const [sortColumn, setSortColumn] = React.useState<ITableSorting>({
     header: ETableHeader.DATE,
     ascending: false,
@@ -102,4 +102,4 @@ const sortBy = (a: DataPoint, b: DataPoint, sortColumn: ITableSorting) => {
   }
 };
 
-export default Table;
+export default TableContainer;

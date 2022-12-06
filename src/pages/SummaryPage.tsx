@@ -6,16 +6,17 @@ import {
   IonPage,
   IonRow,
   IonTitle,
-  IonToolbar
+  IonToolbar,
 } from "@ionic/react";
+import { DateToggleButtons } from "../components/buttons/DateToggleButtons";
 import { DataPointCard } from "../components/cards/DataPointCard";
 import { NullPointsCard } from "../components/cards/NullPointsCard";
 import { TempCard } from "../components/cards/TempCard";
 import Loading from "../components/Loading";
 import { IUseFilteredData } from "../hook/useFilteredData";
-import "./Tab1.css";
+import "./SummaryPage.css";
 
-const Tab1 = ({ props }: { props: IUseFilteredData }) => {
+const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
   const { loading, filteredData, filterDate, refreshSensorData } = props;
   if (loading) {
     return <Loading />;
@@ -33,7 +34,7 @@ const Tab1 = ({ props }: { props: IUseFilteredData }) => {
             <IonTitle size="large">Summary</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {`${filterDate.dateFilterType}`}
+        <DateToggleButtons props={filterDate} />
         <IonGrid>
           <IonRow>
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
@@ -95,4 +96,4 @@ const Tab1 = ({ props }: { props: IUseFilteredData }) => {
   );
 };
 
-export default Tab1;
+export default SummaryPage;

@@ -1,5 +1,5 @@
 import React from "react";
-import { minusDays } from "../helper/dateHelper";
+import { minusDays, minusSeconds } from "../helper/dateHelper";
 import { IDateRange } from "../interface/IDateRange";
 
 export enum EDateFilterType {
@@ -8,6 +8,10 @@ export enum EDateFilterType {
   LAST_WEEK = "Last week",
   ALL = "All time",
 }
+
+const HOUR_IN_SECONDS = 60 * 60;
+const DAY_IN_SECONDS = HOUR_IN_SECONDS * 24;
+const WEEK_IN_SECONDS = DAY_IN_SECONDS * 7;
 
 export interface IFilterDate {
   dateFilterType: EDateFilterType;
@@ -28,11 +32,20 @@ export const useFilterDate = () => {
     const now = new Date();
     switch (dateFilterType) {
       case EDateFilterType.LAST_HOUR:
-        return { minDate: minusDays(now, 1), maxDate: now } as IDateRange;
+        return {
+          minDate: minusSeconds(now, HOUR_IN_SECONDS),
+          maxDate: now,
+        } as IDateRange;
       case EDateFilterType.LAST_DAY:
-        return { minDate: minusDays(now, 1), maxDate: now } as IDateRange;
+        return {
+          minDate: minusSeconds(now, DAY_IN_SECONDS),
+          maxDate: now,
+        } as IDateRange;
       case EDateFilterType.LAST_WEEK:
-        return { minDate: minusDays(now, 7), maxDate: now } as IDateRange;
+        return {
+          minDate: minusSeconds(now, WEEK_IN_SECONDS),
+          maxDate: now,
+        } as IDateRange;
       default:
         return {} as IDateRange;
     }

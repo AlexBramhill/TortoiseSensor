@@ -6,7 +6,7 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
-  setupIonicReact
+  setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import { ellipse, square, triangle } from "ionicons/icons";
@@ -30,10 +30,10 @@ import "@ionic/react/css/text-transformation.css";
 
 /* Theme variables */
 import { useFilteredData } from "./hook/useFilteredData";
-import Tab1 from "./pages/Tab1";
-import Tab2 from "./pages/Tab2";
-import Tab3 from "./pages/Tab3";
+import SummaryPage from "./pages/SummaryPage";
+import GraphPage from "./pages/GraphPage";
 import "./theme/variables.css";
+import TablePage from "./pages/TablePage";
 
 setupIonicReact();
 
@@ -45,29 +45,32 @@ const App: React.FC = () => {
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
-            <Route exact path="/tab1">
-              <Tab1 props={globalProps} />
+            <Route exact path="/summary">
+              <SummaryPage props={globalProps} />
             </Route>
-            <Route exact path="/tab2">
-              <Tab2 />
+            <Route exact path="/graph">
+              <GraphPage />
             </Route>
-            <Route path="/tab3">
-              <Tab3 props={globalProps} />
+            <Route path="/table">
+              <TablePage props={globalProps} />
             </Route>
             <Route exact path="/">
-              <Redirect to="/tab1" />
+              <Redirect to="/summary" />
+            </Route>
+            <Route>
+              <Redirect to="/summary" />
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
-            <IonTabButton tab="tab1" href="/tab1">
+            <IonTabButton tab="tab1" href="/summary">
               <IonIcon icon={triangle} />
               <IonLabel>Summary</IonLabel>
             </IonTabButton>
-            <IonTabButton tab="tab2" href="/tab2">
+            <IonTabButton tab="Graph" href="/graph">
               <IonIcon icon={ellipse} />
-              <IonLabel>Summary</IonLabel>
+              <IonLabel>Graph</IonLabel>
             </IonTabButton>
-            <IonTabButton tab="tab3" href="/tab3">
+            <IonTabButton tab="Table" href="/table">
               <IonIcon icon={square} />
               <IonLabel>Table</IonLabel>
             </IonTabButton>

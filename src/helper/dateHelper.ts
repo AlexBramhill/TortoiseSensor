@@ -28,6 +28,16 @@ export const addDays = (date: Date, days: number): Date => {
   return tempDate;
 };
 
+export const addSeconds = (date: Date, seconds: number): Date => {
+  let tempDate = new Date(date);
+  tempDate.setSeconds(tempDate.getSeconds() + seconds);
+  return tempDate;
+};
+
+export const minusSeconds = (date: Date, seconds: number): Date => {
+  return addSeconds(date, -seconds);
+};
+
 export const minusDays = (date: Date, days: number): Date => {
   return addDays(date, -days);
 };

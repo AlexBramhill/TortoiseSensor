@@ -25,8 +25,8 @@ export const useFilteredData = () => {
 
   // On updating date filter, perform a refresh and update filter
   useEffect(() => {
-    setLoading(true);
-    sensorData.refreshSensorData();
+    if (sensorData.loading === false)
+      setFilteredData(filterSensorDataByDateRange(sensorData.dataPoints));
   }, [filterDate.dateFilterType]);
 
   useEffect(() => {
