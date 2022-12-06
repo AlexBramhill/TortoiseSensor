@@ -12,7 +12,7 @@ export const DateToggleButtons = ({ props }: { props: IFilterDate }) => {
   return (
     <IonHeader>
       <IonToolbar>
-        <IonSegment value={props.dateFilterType} scrollable={true}>
+        <IonSegment value={props.dateFilterType}>
           {Object.values(EDateFilterType).map((filterType) => {
             return (
               <IonSegmentButton
