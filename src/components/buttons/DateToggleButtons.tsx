@@ -6,18 +6,21 @@ import { EDateFilterType, IFilterDate } from "../../hook/useFilterDate";
 
 export const DateToggleButtons = ({ props }: { props: IFilterDate }) => {
   return (
-    <IonButtons>
-      {Object.values(EDateFilterType).map((filterType) => {
-        return (
-          <IonButton
-            key={filterType}
-            fill={filterType === props.dateFilterType ? "solid" : "outline"}
-            onClick={() => props.changeDateFilterType(filterType)}
-          >
-            {filterType}
-          </IonButton>
-        );
-      })}
-    </IonButtons>
+    <IonToolbar>
+      <IonButtons>
+        {Object.values(EDateFilterType).map((filterType) => {
+          return (
+            <IonButton
+              size="small"
+              key={filterType}
+              fill={filterType === props.dateFilterType ? "solid" : "outline"}
+              onClick={() => props.changeDateFilterType(filterType)}
+            >
+              {filterType}
+            </IonButton>
+          );
+        })}
+      </IonButtons>
+    </IonToolbar>
   );
 };

@@ -28,13 +28,13 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
           <IonTitle>Summary</IonTitle>
         </IonToolbar>
       </IonHeader>
+      <DateToggleButtons props={filterDate} />
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Summary</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <DateToggleButtons props={filterDate} />
         <IonGrid>
           <IonRow>
             <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
