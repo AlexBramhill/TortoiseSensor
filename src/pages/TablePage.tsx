@@ -24,18 +24,8 @@ const TablePage = ({ props }: { props: IUseFilteredData }) => {
   }
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Data</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <DateToggleButtons props={filterDate} />
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Data</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <TableContainer props={tableProps} />
       </IonContent>
     </IonPage>

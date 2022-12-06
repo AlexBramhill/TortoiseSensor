@@ -19,6 +19,9 @@ export const DateToggleButtons = ({ props }: { props: IFilterDate }) => {
                 key={filterType}
                 onClick={() => props.changeDateFilterType(filterType)}
                 value={filterType}
+                color={
+                  filterType === props.dateFilterType ? "Default" : "segment"
+                }
               >
                 {filterType}
               </IonSegmentButton>
