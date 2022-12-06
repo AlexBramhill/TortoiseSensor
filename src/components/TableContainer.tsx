@@ -47,7 +47,7 @@ const TableHeader = ({
 
 const TableRow = ({ dataPoint }: { dataPoint: DataPoint }) => (
   <IonRow className="table-row">
-    <IonCol> {`${formatDateTimeReversed(dataPoint.date)}`}</IonCol>
+    <IonCol>{`${formatDateTimeReversed(dataPoint.date)}`}</IonCol>
     <IonCol>{`${dataPoint.getFormattedTemp()}`}</IonCol>
   </IonRow>
 );

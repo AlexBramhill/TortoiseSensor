@@ -16,7 +16,7 @@ export const Card = ({ props }: { props: ICardProps }) => {
   return (
     <IonCard
       color={props.color ? props.color : "primary"}
-      style={{ margin: 0 }}
+      style={{ margin: 0, height: "100%" }}
     >
       <IonCardHeader>
         <IonCardTitle>

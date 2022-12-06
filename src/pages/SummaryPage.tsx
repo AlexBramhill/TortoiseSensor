@@ -63,7 +63,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
               <IonCol size="6" size-sm="4" size-lg="3" size-xl="2">
                 <DataPointCard
                   props={{
-                    title: "Last Successful Reading",
+                    title: "Last Success Reading",
                     dataPoint: filteredData.getLastNonMissingDataPoint(),
                   }}
                 />
