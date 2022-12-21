@@ -61,8 +61,8 @@ export const LineGraph = ({ props }: { props: ILineGraphProps }) => {
     },
     scales: {
       y: {
-        min: minValue ? (minValue < 0 ? minValue - 1 : 0) : 0,
-        max: maxValue ? (maxValue > 10 ? maxValue + 1 : 10) : 10,
+        min: minValue ? (minValue < 0 ? Math.round(minValue - 1) : 0) : 0,
+        max: maxValue ? (maxValue > 10 ? Math.round(maxValue + 1) : 10) : 10,
         ticks: {
           stepSize: 1,
           callback: (value: any) => value.toString() + "°C",
