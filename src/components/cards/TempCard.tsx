@@ -4,13 +4,13 @@ import "./Cards.css";
 export interface ITempCard {
   title: string;
   temp: string | null;
-  tempAcceptance: string;
+  color: string;
 }
 export const TempCard = ({ props }: { props: ITempCard }) => {
   const cardProps: ICardProps = {
     title: props.title,
     header: props.temp,
-    color: props.tempAcceptance,
+    color: props.color,
   };
   return <Card props={cardProps} />;
 };

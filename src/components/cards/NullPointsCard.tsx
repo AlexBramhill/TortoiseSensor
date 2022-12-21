@@ -13,7 +13,7 @@ export const NullPointsCard = ({ props }: { props: INullPointsProps }) => {
     subtitle: `last: ${props.nullPoints
       ?.getLastDataPoint()
       ?.getFormattedDate()}`,
-    color: `${props.nullPoints?.getNullPointsAcceptance()}`,
+    color: props.nullPoints?.getNullPointsDangerLevelSpec().cssColour,
   };
   return <Card props={cardProps} />;
 };

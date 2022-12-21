@@ -48,7 +48,7 @@ const SummaryPage = ({ props }: { props: IUseFilteredData }) => {
                 props={{
                   title: "Average",
                   temp: filteredData.getAverageTempFormatted(),
-                  tempAcceptance: filteredData.getAverageTempAcceptance(),
+                  color: filteredData.getAverageTempDangerLevelSpec().cssColour,
                 }}
               />
             </IonCol>

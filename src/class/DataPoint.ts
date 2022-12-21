@@ -1,13 +1,8 @@
 import { formatDateTime } from "../helper/dateHelper";
-
-export enum EDangerLevel {
-  DANGER_LOW = "danger",
-  LOW = "warning",
-  SUITABLE = "success",
-  HIGH = "warning",
-  DANGER_HIGH = "danger",
-  MISSING = "warning",
-}
+import {
+  getDangerLevelSpecByTemp,
+  IDangerLevelTemp,
+} from "../interface/IDangerLevelTemperature";
 
 export class DataPoint {
   date: Date;
@@ -18,24 +13,8 @@ export class DataPoint {
     this.temp = temp;
   }
 
-  getDangerLevel(): EDangerLevel {
-    //if statements ... gotta go gfast
-    if (!this.temp) {
-      return EDangerLevel.MISSING;
-    }
-    if (this.temp <= 1) {
-      return EDangerLevel.DANGER_LOW;
-    }
-    if (this.temp <= 3) {
-      return EDangerLevel.LOW;
-    }
-    if (this.temp >= 9) {
-      return EDangerLevel.DANGER_HIGH;
-    }
-    if (this.temp >= 7) {
-      return EDangerLevel.HIGH;
-    }
-    return EDangerLevel.SUITABLE;
+  getDangerLevelSpec(): IDangerLevelTemp {
+    return getDangerLevelSpecByTemp(this.temp);
   }
   getFormattedDate(): string {
     return formatDateTime(this.date);

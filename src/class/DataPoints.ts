@@ -1,5 +1,10 @@
+import {
+  getDangerLevelSpecByNullPointCount,
+  IDangerLevelNullPoint,
+} from "../interface/IDangerLevelNullPoints";
+import { getDangerLevelSpecByTemp, IDangerLevelTemp } from "../interface/IDangerLevelTemperature";
 import { IDateRange } from "../interface/IDateRange";
-import { DataPoint, EDangerLevel } from "./DataPoint";
+import { DataPoint } from "./DataPoint";
 
 export class DataPoints {
   dataPoints: DataPoint[];
@@ -93,12 +98,12 @@ export class DataPoints {
     );
   }
 
-  getAverageTemp(): string | number | null {
+  getAverageTemp(): number | null {
     const dataPointsWithoutNulls = this.dataPoints.filter(
       (dataPoint) => dataPoint.temp !== null
     );
     if (dataPointsWithoutNulls.length === 0) {
-      return "Missing";
+      return null;
     }
     return (
       Math.round(
@@ -111,26 +116,10 @@ export class DataPoints {
       ) / 100
     );
   }
-  // Todo tidy how we do this everywhere
-  getAverageTempAcceptance(): string {
+
+  getAverageTempDangerLevelSpec(): IDangerLevelTemp {
     const averageTemp = this.getAverageTemp();
-    //if statements ... gotta go gfast
-    if (averageTemp === "Missing" || !averageTemp) {
-      return EDangerLevel.MISSING;
-    }
-    if (averageTemp <= 1) {
-      return EDangerLevel.DANGER_LOW;
-    }
-    if (averageTemp <= 3) {
-      return EDangerLevel.LOW;
-    }
-    if (averageTemp >= 9) {
-      return EDangerLevel.DANGER_HIGH;
-    }
-    if (averageTemp >= 7) {
-      return EDangerLevel.HIGH;
-    }
-    return EDangerLevel.SUITABLE;
+    return getDangerLevelSpecByTemp(averageTemp);
   }
 
   getNullPoints(): DataPoints | null {
@@ -145,14 +134,8 @@ export class DataPoints {
     );
   }
 
-  getNullPointsAcceptance(): string {
+  getNullPointsDangerLevelSpec(): IDangerLevelNullPoint {
     const nullCount = this.getNullPoints()?.dataPoints?.length || 0;
-    if (nullCount >= 1) {
-      return "warning";
-    }
-    if (nullCount >= 10) {
-      return "danger";
-    }
-    return "success";
+    return getDangerLevelSpecByNullPointCount(nullCount);
   }
 }
