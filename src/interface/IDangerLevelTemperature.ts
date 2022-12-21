@@ -47,7 +47,7 @@ const MISSING: IDangerLevelTemp = {
 };
 
 export const getDangerLevelByTemp = (temp: number | null) => {
-  if (!temp) {
+  if (!temp || temp === null) {
     return EDangerLevelTemp.MISSING;
   }
   if (temp <= 1) {

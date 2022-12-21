@@ -22,7 +22,6 @@ export const useSensorData = (): ISensorData => {
     getAllTemperatures().then((response) => {
       setSensorData(response);
       setLoading(false);
-      console.log("DataRefreshed");
     });
   };
 

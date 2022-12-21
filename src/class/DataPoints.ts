@@ -2,7 +2,10 @@ import {
   getDangerLevelSpecByNullPointCount,
   IDangerLevelNullPoint,
 } from "../interface/IDangerLevelNullPoints";
-import { getDangerLevelSpecByTemp, IDangerLevelTemp } from "../interface/IDangerLevelTemperature";
+import {
+  getDangerLevelSpecByTemp,
+  IDangerLevelTemp,
+} from "../interface/IDangerLevelTemperature";
 import { IDateRange } from "../interface/IDateRange";
 import { DataPoint } from "./DataPoint";
 
@@ -66,43 +69,36 @@ export class DataPoints {
     return this.getFirstDataPoint()?.date || null;
   }
   getMaxDataPoint(): DataPoint | null {
-    return this.dataPoints.reduce((a, b) =>
+    const dataPointCollection = this.getNonNullPoints();
+    if (!dataPointCollection || dataPointCollection.dataPoints.length === 0) {
+      return null;
+    }
+    return dataPointCollection.dataPoints.reduce((a, b) =>
       a.temp === null || b.temp === null || a.temp > b.temp ? a : b
     );
   }
 
   getMinDataPoint(): DataPoint | null {
-    return this.dataPoints.reduce((a, b) =>
+    const dataPointCollection = this.getNonNullPoints();
+    if (!dataPointCollection || dataPointCollection.dataPoints.length === 0) {
+      return null;
+    }
+    return dataPointCollection.dataPoints.reduce((a, b) =>
       a.temp === null || b.temp === null || a.temp < b.temp ? a : b
     );
   }
 
   getAverageTempFormatted(): string | null {
-    const dataPointsWithoutNulls = this.dataPoints.filter(
-      (dataPoint) => dataPoint.temp !== null
-    );
-    if (dataPointsWithoutNulls.length === 0) {
+    const averageTempUnformatted = this.getAverageTemp();
+    if (!averageTempUnformatted) {
       return "Missing";
     }
-    return (
-      (
-        Math.round(
-          (dataPointsWithoutNulls.reduce(
-            (sum, { temp }) => (temp ? sum + temp : sum),
-            0
-          ) /
-            this.dataPoints.length) *
-            100
-        ) / 100
-      ).toString() + "°C"
-    );
+    return averageTempUnformatted.toString() + "°C";
   }
 
   getAverageTemp(): number | null {
-    const dataPointsWithoutNulls = this.dataPoints.filter(
-      (dataPoint) => dataPoint.temp !== null
-    );
-    if (dataPointsWithoutNulls.length === 0) {
+    const dataPointsWithoutNulls = this.getNonNullPoints()?.dataPoints;
+    if (!dataPointsWithoutNulls || dataPointsWithoutNulls.length === 0) {
       return null;
     }
     return (
