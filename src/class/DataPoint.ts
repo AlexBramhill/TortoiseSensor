@@ -21,7 +21,10 @@ export class DataPoint {
   }
 
   getFormattedTemp(): string {
-    return !this.temp ? "Missing" : `${this.temp.toString()}°C`;
+    if (!this.temp) {
+      return "Missing";
+    }
+    return `${(Math.round(this.temp * 100) / 100).toString()}°C`;
   }
 
   isMissing(): boolean {

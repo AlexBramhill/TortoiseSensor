@@ -8,8 +8,8 @@ export const getDummyData = () => {
   const dateMid = addDays(dateNow, -5);
   const array = Array.from({ length: 150 }, () =>
     processRawDataPoint([
-      randomMinMax(dateStart.valueOf() / 1000, dateNow.valueOf() / 1000),
-      randomMinMax(-2, 12).toString(),
+      randomMinMaxInt(dateStart.valueOf() / 1000, dateNow.valueOf() / 1000),
+      randomMinMaxFloat(-2, 9).toString(),
     ])
   );
 
@@ -20,6 +20,9 @@ export const getDummyData = () => {
   return array;
 };
 
-const randomMinMax = (min: number, max: number) => {
+const randomMinMaxInt = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
+};
+const randomMinMaxFloat = (min: number, max: number) => {
+  return Math.random() * (max - min + 1) + min;
 };

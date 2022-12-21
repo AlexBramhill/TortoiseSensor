@@ -93,7 +93,7 @@ export class DataPoints {
     if (!averageTempUnformatted) {
       return "Missing";
     }
-    return averageTempUnformatted.toString() + "°C";
+    return `${(Math.round(averageTempUnformatted * 100) / 100).toString()}°C`;
   }
 
   getAverageTemp(): number | null {
@@ -102,14 +102,10 @@ export class DataPoints {
       return null;
     }
     return (
-      Math.round(
-        (dataPointsWithoutNulls.reduce(
-          (sum, { temp }) => (temp ? sum + temp : sum),
-          0
-        ) /
-          this.dataPoints.length) *
-          100
-      ) / 100
+      dataPointsWithoutNulls.reduce(
+        (sum, { temp }) => (temp ? sum + temp : sum),
+        0
+      ) / this.dataPoints.length
     );
   }
 

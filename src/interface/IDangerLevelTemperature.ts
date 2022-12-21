@@ -50,10 +50,10 @@ export const getDangerLevelByTemp = (temp: number | null) => {
   if (!temp || temp === null) {
     return EDangerLevelTemp.MISSING;
   }
-  if (temp <= 1) {
+  if (temp <= 2) {
     return EDangerLevelTemp.DANGER_LOW;
   }
-  if (temp <= 3) {
+  if (temp <= 4) {
     return EDangerLevelTemp.LOW;
   }
   if (temp >= 9) {

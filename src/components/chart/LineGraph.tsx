@@ -50,6 +50,7 @@ export const LineGraph = ({ props }: { props: ILineGraphProps }) => {
   const minValue = props.data.getMinDataPoint()?.temp;
   const maxValue = props.data.getMaxDataPoint()?.temp;
   const options = {
+    responsive: true,
     plugins: {
       legend: {
         display: false,
@@ -62,7 +63,10 @@ export const LineGraph = ({ props }: { props: ILineGraphProps }) => {
       y: {
         min: minValue ? (minValue < 0 ? minValue - 1 : 0) : 0,
         max: maxValue ? (maxValue > 10 ? maxValue + 1 : 10) : 10,
-        stepSize: 5,
+        ticks: {
+          stepSize: 1,
+          callback: (value: any) => value.toString() + "°C",
+        },
       },
       x: {},
     },
@@ -81,15 +85,15 @@ export const LineGraph = ({ props }: { props: ILineGraphProps }) => {
         borderColor: "rgb(53, 162, 235)",
       },
       {
-        label: "1°C",
+        label: "2°C",
         fill: { value: -100 },
-        data: getDataToDisplayStraightLine(dataPoints.length, 1),
+        data: getDataToDisplayStraightLine(dataPoints.length, 2),
         ...lineFormatDanger,
       },
       {
-        label: "3°C",
+        label: "4°C",
         fill: 1,
-        data: getDataToDisplayStraightLine(dataPoints.length, 3),
+        data: getDataToDisplayStraightLine(dataPoints.length, 4),
         ...lineFormatWarning,
       },
       {
