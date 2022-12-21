@@ -49,7 +49,7 @@ const App: React.FC = () => {
               <SummaryPage props={globalProps} />
             </Route>
             <Route exact path="/graph">
-              <GraphPage />
+              <GraphPage props={globalProps} />
             </Route>
             <Route path="/table">
               <TablePage props={globalProps} />

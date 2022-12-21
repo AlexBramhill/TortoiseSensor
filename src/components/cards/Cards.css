@@ -1,17 +1,11 @@
 .summary-card--heading-title {
-  font-size: clamp(1.5rem, -4.7222rem + 12.963vw, 5rem);
-  line-height: clamp(2rem, -3.3333rem + 11.1111vw, 5rem);
 }
 
 .summary-card--heading {
   font-weight: bold;
-  font-size: clamp(2rem, -3.3333rem + 11.1111vw, 5rem);
-  line-height: clamp(2rem, -5.1111rem + 14.8148vw, 6rem);
 }
 
 .summary-card--subtitle {
-  font-size: clamp(1rem, -0.7778rem + 3.7037vw, 2rem);
-  line-height: clamp(2rem, -3.3333rem + 11.1111vw, 5rem);
   text-transform: uppercase;
 }
 

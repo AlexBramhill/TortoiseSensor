@@ -5,8 +5,23 @@ export class DataPoints {
   dataPoints: DataPoint[];
 
   constructor(dataPoints: DataPoint[]) {
-    this.dataPoints = dataPoints;
+    this.dataPoints = this.sortByDate(dataPoints);
   }
+
+  sortByDate = (dataPoints: DataPoint[]) => {
+    return [...dataPoints].sort(function (a, b) {
+      let dateA = a.date.getTime();
+      let dateB = b.date.getTime();
+
+      if (dateA < dateB) {
+        return -1;
+      }
+      if (dateA > dateB) {
+        return 1;
+      }
+      return 0;
+    });
+  };
 
   filterByDateRange = (dateRange: IDateRange) => {
     if (!this.dataPoints || this.dataPoints.length === 0) {
@@ -121,6 +136,12 @@ export class DataPoints {
   getNullPoints(): DataPoints | null {
     return new DataPoints(
       this.dataPoints.filter((dataPoint) => dataPoint.temp === null)
+    );
+  }
+
+  getNonNullPoints(): DataPoints | null {
+    return new DataPoints(
+      this.dataPoints.filter((dataPoint) => dataPoint.temp !== null)
     );
   }
 

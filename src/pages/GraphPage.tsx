@@ -5,14 +5,22 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import ExploreContainer from "../components/containers/ExploreContainer";
+import { DateToggleButtons } from "../components/buttons/DateToggleButtons";
+import { ILineGraphProps, LineGraph } from "../components/chart/LineGraph";
+import Loading from "../components/Loading";
+import { IUseFilteredData } from "../hook/useFilteredData";
 import "./GraphPage.css";
 
-const GraphPage: React.FC = () => {
+const GraphPage = ({ props }: { props: IUseFilteredData }) => {
+  const { loading, filteredData, filterDate, refreshSensorData } = props;
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <IonPage>
+      <DateToggleButtons props={filterDate} />
       <IonContent fullscreen>
-        <ExploreContainer name="Graph Page" />
+        <LineGraph props={{ data: filteredData }}></LineGraph>
       </IonContent>
     </IonPage>
   );
