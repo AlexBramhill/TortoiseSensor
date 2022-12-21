@@ -9,7 +9,7 @@ export const getDummyData = () => {
   const array = Array.from({ length: 150 }, () =>
     processRawDataPoint([
       randomMinMax(dateStart.valueOf() / 1000, dateNow.valueOf() / 1000),
-      randomMinMax(-10, 20).toString(),
+      randomMinMax(-2, 12).toString(),
     ])
   );
 
